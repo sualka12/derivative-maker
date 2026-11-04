@@ -67,6 +67,7 @@ ssh -i ./id_ed25519 -p 2222 \
     "XDG_RUNTIME_DIR=/run/user/1000 \
      DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' \
      PATH='/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' \
+     BUILD_METHOD='${BUILD_METHOD:-}' \
      BUILD_FLAVOR='${BUILD_FLAVOR:-}' \
      BUILD_ARCH='${BUILD_ARCH:-}' \
      BUILD_TARGET='${BUILD_TARGET:-}' \
