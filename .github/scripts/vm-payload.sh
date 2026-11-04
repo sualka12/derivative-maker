@@ -8,6 +8,23 @@ set -o errtrace
 shopt -s inherit_errexit
 shopt -s shift_verbose
 
+DM=(
+  ./derivative-maker
+  --flavor "${BUILD_FLAVOR}"
+  --arch "${BUILD_ARCH}"
+  --target "${BUILD_TARGET}"
+  --type "${BUILD_TYPE}"
+  --freshness "${BUILD_FRESHNESS}"
+  --allow-untagged "${ALLOW_UNTAGGED}"
+  --allow-uncommitted "${ALLOW_UNCOMMITTED}"
+)
+
+DM_OFFICIAL=(
+  ./help-steps/dm-build-official
+  --remote-derivative-packages false
+  --sign true
+)
+
 # Prep signing key for key_mnt
 echo "[+] Guest Subsystem: Initializing key space..."
 mkdir -p "${KEY_DIR}"
@@ -62,14 +79,11 @@ chmod 700 /home/debian/.gnupg
 
 cd /home/debian/build-workspace
 
-./oci/derivative-maker-oci-run -- bash -c "
-  ./help-steps/ci-signing-setup && \
-  ./derivative-maker \
-    --flavor '${BUILD_FLAVOR}' \
-    --arch '${BUILD_ARCH}' \
-    --target '${BUILD_TARGET}' \
-    --type '${BUILD_TYPE}' \
-    --freshness '${BUILD_FRESHNESS}' \
-    --allow-untagged '${ALLOW_UNTAGGED}' \
-    --allow-uncommitted '${ALLOW_UNCOMMITTED}'
-"
+if [ "${BUILD_METHOD}" = "official" ]; then
+  RUN_CMD=("${DM_OFFICIAL[@]}")
+else
+  RUN_CMD=("${DM[@]}")
+fi
+
+./oci/derivative-maker-oci-run -- bash -c "./help-steps/ci-signing-setup && ${RUN_CMD[@]}"
+
