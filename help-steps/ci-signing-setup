@@ -15,6 +15,7 @@ PRIVATE_KEY_PATH="${PRIVATE_KEY_PATH:-/home/${OCI_USER}/.local/share/my-private-
 GIT_GITHUB_EMAIL="${GIT_GITHUB_EMAIL:-tabletseeker-ci@protonmail.com}"
 GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-tabletseeker/derivative-maker}"
 SIGNIFY_DIR="/home/${OCI_USER}/.signify"
+BUILDCONF_DIR="/home/${OCI_USER}/buildconfig.d"
 
 cd "${REPO_ROOT}"
 
@@ -85,6 +86,20 @@ if [[ ! -f "${SIGNIFY_DIR}/keyname.sec" ]]; then
         -c "derivative-maker"
     chmod 600 "${SIGNIFY_DIR}/keyname.sec"
 fi
+
+# Buildconfig CI setup
+cat << 'EOF' > "${BUILDCONF_DIR}/40_ci.conf"
+rsync_cmd="true"
+signing_key_email="${DEBEMAIL:-}"
+dist_build_redistributable="true"
+dist_build_source_release_flavor=""
+dist_build_upload_locations+=( "localhost" )
+remote_derivative_packages="false"
+derivative_maker_repository="false"
+derivative_maker_apt_repository_store="false"
+whonix_repository=""
+kicksecure_repository=""
+EOF
 
 # Configure repo-local git with a valid identity.
 git -C "${REPO_ROOT}" config user.name "${DEBFULLNAME}"
