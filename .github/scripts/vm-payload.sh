@@ -22,7 +22,7 @@ DM=(
 DM_OFFICIAL=(
   ./help-steps/dm-build-official
   --remote-derivative-packages false
-  --sign true
+  --freshness frozen
 )
 
 # Prep signing key for key_mnt
