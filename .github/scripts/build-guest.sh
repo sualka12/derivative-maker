@@ -95,6 +95,7 @@ ssh -i ./id_ed25519 -p 2222 \
      dist_build_version_type='${dist_build_version_type:-}' \
      dist_build_freshness='${dist_build_freshness:-}' \
      dist_build_source_release_flavor='${dist_build_source_release_flavor:-}' \
+     dist_build_redistributable='${dist_build_redistributable:-}' \
      sudo -E -u debian bash -s" < "${SCRIPT_DIR}/vm-payload.sh"
 
 echo "[+] Workspace artifact build block completed. Keeping VM alive for extraction phase."
