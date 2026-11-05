@@ -24,9 +24,6 @@ if [[ -n "${CHOSEN_VERSION:-}" ]]; then
   RELEASE_VERSION="${CHOSEN_VERSION}"
 else
   RELEASE_VERSION="$(dpkg-parsechangelog --show-field=Version | sed 's/.*://;s/-.*//')"
-  if [[ -z "${RELEASE_VERSION}" ]]; then
-    RELEASE_VERSION="unknown"
-  fi
 fi
 
 RELEASE_TAG="${RELEASE_TAG:-${RELEASE_VERSION}-nightly}"
