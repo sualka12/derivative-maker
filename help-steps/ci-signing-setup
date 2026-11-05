@@ -91,7 +91,6 @@ fi
 cat << 'EOF' > "${BUILDCONF_DIR}/40_ci.conf"
 rsync_cmd="true"
 signing_key_email="${DEBEMAIL:-}"
-dist_build_redistributable="true"
 dist_build_source_release_flavor=""
 dist_build_upload_locations+=( "localhost" )
 remote_derivative_packages="false"
