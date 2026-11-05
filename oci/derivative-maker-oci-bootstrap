@@ -18,7 +18,7 @@ DM_FROZEN_SOURCES='/etc/apt/dm-frozen.sources'
 declare -a dm_apt_options
 
 ## Check if a frozen source was generated
-if [ -f "${DM_FROZEN_SOURCES}" ]; then
+if [[ "${ALLOW_UNFROZEN:-false}" != "true" ]]; then
    dm_apt_options=(
       -o "Dir::Etc::sourcelist=${DM_FROZEN_SOURCES}"
       -o 'Dir::Etc::sourceparts=-'
