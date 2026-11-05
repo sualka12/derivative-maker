@@ -53,7 +53,7 @@ on:
       # SHARED PARAMETERS (Used by both modes)
       # ========================================================================
       arch:
-        description: "[Developer] Target CPU Architecture"
+        description: "Target CPU Architecture"
         required: false
         default: "amd64"
         type: choice
@@ -62,7 +62,7 @@ on:
           - "arm64"
 
       target:
-        description: "[Developer] Build Target output wrapper format"
+        description: "Build Target output wrapper format"
         required: false
         default: "qcow2"
         type: choice
@@ -73,7 +73,7 @@ on:
           - "iso"
 
       type:
-        description: "[Developer] System Footprint Environment Type"
+        description: "System Footprint Environment Type"
         required: false
         default: "vm"
         type: choice
@@ -84,7 +84,7 @@ on:
           - "host"
 
       freshness:
-        description: "[Developer] APT repository freshness profile"
+        description: "APT repository freshness profile"
         required: false
         default: "frozen"
         type: choice
