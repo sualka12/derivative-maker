@@ -40,6 +40,7 @@ fi
 buildah run \
     --env OCI_USER="$OCI_USER" \
     --env HOST_USER_ID="$HOST_USER_ID" \
+    --env ALLOW_UNFROZEN="$ALLOW_UNFROZEN" \
     "$ctr" -- bash < "${SOURCE_VOLUME}/oci/derivative-maker-oci-bootstrap"
 
 ## Configures OCI engine to run `/sbin/init`, discarding fragile hardcoded binary routes or entry scripts.
